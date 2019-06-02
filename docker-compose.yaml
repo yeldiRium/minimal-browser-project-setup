@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 8080:8080
+  prod:
+    build: .
+    ports:
+      - 8080:8080

@@ -1,0 +1,9 @@
+# ide specific
+.vscode
+.idea
+
+# npm packages
+node_modules
+
+# build output
+dist

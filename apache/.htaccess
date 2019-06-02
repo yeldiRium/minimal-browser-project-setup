@@ -1,0 +1,44 @@
+# Disable directory listing.
+Options -Indexes
+
+# Rewrite all requests that don't hit a file to the main entry point.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Set correct mime type for PWA manifest.
+<Files manifest.json>
+  AddType application/manifest+json .json
+</Files>
+
+# Set cache time for static assets.
+<FilesMatch "\.(png|jp?g|gif|ico|mp4|wmv|mov|mpeg|css|map|woff?|eot|svg|ttf|js|json|pdf|csv|webp)">
+    ExpiresActive on
+    ExpiresDefault "access plus 2 weeks"
+</FilesMatch>
+
+# Set headers on main page.
+<Files index.html>
+  # Only allow loading content from the same origin.
+  Header set Content-Security-Policy "script-src 'self'"
+
+  # Prevent browsers from loading the page in a frame.
+  Header set X-Frame-Options "SAMEORIGIN"
+
+  # Stop browsers from sanitizing possible XSS attacks and just block them.
+  Header set X-XSS-Protection "1; mode=block"
+
+  # Force browser to accept the mime type sent by the server.
+  Header set X-Content-Type-Options "nosniff"
+
+  # Send only domain when moving cross origin, otherwise full url. Don't set referer on downgrade.
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Explicitly set character encoding.
+  Header set Content-Type "text/html; charset=utf-8"
+</Files>

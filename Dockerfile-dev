@@ -1,0 +1,12 @@
+FROM node:12-alpine
+WORKDIR /app
+
+CMD ["npm", "run", "serve"]
+
+ADD package.json package.json
+ADD package-lock.json package-lock.json
+
+RUN npm install
+
+ADD .babelrc .babelrc
+ADD webpack.config.js webpack.config.js
