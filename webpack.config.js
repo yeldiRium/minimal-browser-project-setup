@@ -3,7 +3,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
+module.exports = (env, argv) => ({
   module: {
     rules: [
       {
@@ -47,5 +47,6 @@ module.exports = {
     compress: true,
     port: 8080,
     host: "0.0.0.0"
-  }
-};
+  },
+  devtool: argv.mode === "development" ? "eval-source-map" : "none"
+});

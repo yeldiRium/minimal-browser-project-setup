@@ -12,7 +12,7 @@
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "build:watch": "webpack --mode development --watch",
-    "serve": "webpack-dev-server"
+    "serve": "webpack-dev-server --mode development"
   },
   "license": "GPL-3.0",
   "devDependencies": {
