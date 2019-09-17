@@ -15,9 +15,7 @@ RUN npm run build
 
 FROM bitnami/apache:latest
 
-# This directory needs to exist for the image to work.
-RUN mkdir -p /bitnami/apache/conf/vhosts/htaccess
-ADD apache/vhost.conf /bitnami/apache/conf/vhosts/app.conf
+ADD apache/vhost.conf /vhosts/app.conf
 
 COPY --from=builder /build/dist /app
 ADD apache/.htaccess /app/.htaccess
